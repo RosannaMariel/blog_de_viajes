@@ -16,6 +16,7 @@ class Post(models.Model):
     imagen = models.ImageField(null=True, blank=True, upload_to='posts',default='posts/posts_default.png')
     categoria = models.ForeignKey(Categoria, on_delete=models.SET_NULL, null=True)
     fecha_agregado=models.DateTimeField(auto_now_add=True)
+    deleted = False
 
     def __str__(self):
         return self.titulo
