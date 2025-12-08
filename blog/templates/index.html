@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block titulo %}
+<title>Inicio | Blog de Viajes</title>
+{% endblock %}
+
+{% block navegacion %}
+{% include 'navegacion.html' %}
+{% endblock %}
+
+{% block contenido %}
+<header class="position-relative">
+    <img src="{% static 'img/fondo3.jpg' %}" 
+         class="img-fluid w-100" 
+         style="max-height: 60vh; object-fit: cover; filter: brightness(60%);">
+
+    <div class="position-absolute top-50 start-50 translate-middle text-center text-white">
+        <h1 class="fw-bold display-4" style="text-shadow: 2px 2px 8px rgba(0,0,0,0.7);">
+            ¡El espacio ideal para almas viajeras!
+        </h1>
+        <p class="lead mt-3" style="max-width: 700px; margin: auto;">
+            Descubrí nuevos destinos, compartí tus experiencias y conectá con viajeros de todo el mundo.
+¡Registrate y sumate a nuestra comunidad viajera!
+        </p>
+        <a href="" class="btn btn-warning mt-4 px-4 py-2 fs-5 fw-semibold shadow">
+            Crear cuenta
+        </a>
+    </div>
+</header>
+
+<section class="mt-5">
+    <div class="container">
+        <h2 class="text-center fw-bold mb-4" style="font-family: 'Poppins', sans-serif;">
+            Destinos Destacadas
+        </h2>
+
+        <div id="carouselExampleIndicators" class="carousel slide carousel-fade shadow-lg mb-5">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
+                    aria-current="true"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"></button>
+            </div>
+
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="{% static 'img/img_slides/viaje_1.jpg' %}" 
+                         class="d-block mx-auto img-fluid"
+                         style="max-height: 450px; object-fit: cover;">
+                </div>
+                <div class="carousel-item">
+                    <img src="{% static 'img/img_slides/viaje_2.jpg' %}" 
+                         class="d-block mx-auto img-fluid"
+                         style="max-height: 450px; object-fit: cover;">
+                </div>
+                <div class="carousel-item">
+                    <img src="{% static 'img/img_slides/viaje_3.jpg' %}" 
+                         class="d-block mx-auto img-fluid"
+                         style="max-height: 450px; object-fit: cover;">
+                </div>
+            </div>
+
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                data-bs-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                data-bs-slide="next">
+                <span class="carousel-control-next-icon"></span>
+            </button>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
