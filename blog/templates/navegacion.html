@@ -1,0 +1,79 @@
+{% load static %}
+<nav class="navbar" data-bs-theme="dark">
+    <div class="container-fluid">
+        <a href="{% url 'index' %}">
+            <img src="{% static 'img/logo.png' %}" alt="">
+        </a>
+        <ul class="nav nav-underline">
+            {% if user.is_authenticated %}
+            <div class="list-group-item d-flex gap-3 py-3" aria-current="true">
+                <img src="{{ user.imagen.url }}" alt="perfil" width="40" height="40"
+                    class="rounded-circle flex-shrink-0">
+                <ul class="navbar-nav">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            {{user.username}}
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <li><a class="dropdown-item"
+                                    href="">Modificar
+                                    Perfil</a></li>
+                            <li>
+                                <form method="post" action="{% url 'apps.usuarios:cerrar_sesion' %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="dropdown-item">Cerrar Sesión</button>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                </ul>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'apps.usuarios:registrar' %}">Registrarse</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'apps.usuarios:iniciar_sesion' %}">Iniciar Sesión</a>
+                </li>
+                {% endif %}
+        </ul>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Viajes
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <li><a class="dropdown-item" href="{% url 'apps.posts:listar_posts' %}">Todos</a></li>
+                        {% for i in categorias %}
+                        <li><a class="dropdown-item"
+                                href="{% url 'apps.posts:listar_por_categoria' i.nombre %}">>>{{i.nombre}}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% if user.es_colaborador %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Colaborador
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{% url 'apps.posts:agregar_categoria' %}">Agregar
+                                    categoria</a></li>
+                            <li><a class="dropdown-item" href="{% url 'apps.posts:agregar_post' %}">Agregar
+                                    libro</a></li>
+                            <li><a class="dropdown-item" href="">Listar
+                                    usuarios</a></li>
+                        </ul>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+
+</nav>

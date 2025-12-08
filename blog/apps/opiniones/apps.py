@@ -2,4 +2,5 @@ from django.apps import AppConfig
 
 
 class OpinionesConfig(AppConfig):
-    name = 'opiniones'
+    default_auto_field = "django.db.models.BigAutoField"
+    name = 'apps.opiniones'
