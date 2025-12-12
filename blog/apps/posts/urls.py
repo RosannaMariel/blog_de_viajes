@@ -16,9 +16,11 @@ Including another URLconf
 """
 from django.urls import path
 
-from .views import AgregarCategoria, AgregarPost, ActualizarPost, EliminarPost, ListarPost
+from .views import AgregarCategoria, AgregarPost, ActualizarPost, EliminarPost, ListarPost, leer_post, listar_post_por_categoria, ordenar_por
+
 
 app_name = "apps.posts"
+
 
 urlpatterns = [
     path("agregar_categoria/", AgregarCategoria.as_view(), name='agregar_categoria'),
@@ -26,6 +28,7 @@ urlpatterns = [
     path("actualizar_post/<int:pk>", ActualizarPost.as_view() , name="actualizar_post" ),
     path("eliminar_post/<int:pk>", EliminarPost.as_view(), name="eliminar post"),
     path("listar_posts/", ListarPost.as_view(), name="listar_posts"),
-    path("listar_por_categoria/<str:categoria>", ListarPost.listar_post_por_categoria, name="listar_por_categoria"),
-    path("ordenar_por", ListarPost.ordenar_por , name="ordenar_por"),
+    path("listar_por_categoria/<str:categoria>", listar_post_por_categoria, name="listar_por_categoria"),
+    path("ordenar_por", ordenar_por , name="ordenar_por"),
+    path("post/<int:id>", leer_post , name = "post")
 ]

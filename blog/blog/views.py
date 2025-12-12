@@ -7,7 +7,7 @@ class HomeView(TemplateView):
     template_name = "index.html"
 
 
-# Vistas basas en funciones
+# Vistas basadas en funciones
 # from django.shortcuts import render    
 
 # def index(request):
