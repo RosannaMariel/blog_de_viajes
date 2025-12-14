@@ -26,7 +26,7 @@
                     <div class="image-wrapper">
                         {% if post.imagen %}<img src="{{ post.imagen.url }}" class="d-block w-100">
                         {% else %}<img src="{% static 'img/fondo3.jpg' %}">{% endif %}
-                        <p class="mbr-description mbr-fonts-style pt-2 align-center display-4">{{post.fecha_agregado}}</p>
+                        <p class="mbr-description mbr-fonts-style pt-2 align-center fecha-post">{{post.fecha_agregado|date:"d M Y · H:i"}}</p>
                     </div>
                 </div>
                 <div class="col-12 col-lg">

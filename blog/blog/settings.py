@@ -49,7 +49,8 @@ INSTALLED_APPS = [
     "apps.usuarios",
     "apps.posts",
     "apps.opiniones",
-
+    "apps.contacto",
+    "apps.acerca",
 ]
 
 MIDDLEWARE = [

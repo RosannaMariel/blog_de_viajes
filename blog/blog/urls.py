@@ -28,6 +28,8 @@ urlpatterns = [
     path("post/", include('apps.posts.urls')),
     path("usuarios/", include('apps.usuarios.urls')),
     path("opiniones/", include('apps.opiniones.urls')),
+    path("contacto/", include('apps.contacto.urls')),
+    path("acerca/", include('apps.acerca.urls')),
 ] 
 
 

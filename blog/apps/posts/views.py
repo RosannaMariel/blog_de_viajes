@@ -3,13 +3,26 @@ from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 
-from apps.posts.models import Categoria, Post
+from apps.posts.models import Categoria, Post, Region, Pais
 from apps.opiniones.models import Opinion
 from apps.opiniones.forms import OpinionForm
-from.forms import PostForm
+
 
 # Create your views here.
 
+# ----- Region -----
+class AgregarRegion(CreateView):
+    model = Region
+    fields = ["nombre"]
+    template_name = "posts/agregar_region.html"
+    success_url = reverse_lazy("index")
+
+# ----- Pais ------
+class AgregarPais(CreateView):
+    model = Pais
+    fields = ["nombre"]
+    template_name = "posts/agregar_pais.html"
+    success_url = reverse_lazy("index")
 # ----- Categoria -----
 class AgregarCategoria(CreateView):
     model = Categoria
@@ -20,19 +33,19 @@ class AgregarCategoria(CreateView):
 # ----- Posts -----
 class AgregarPost(CreateView):
     model = Post
-    fields = ['titulo', 'categoria', 'descripcion', 'imagen']
+    fields = ['region', 'pais', 'categoria','titulo','descripcion', 'imagen']
     template_name = "posts/agregar_post.html"
     success_url = reverse_lazy("index")
 
 class ActualizarPost(UpdateView):
     model = Post
-    fields = ['titulo', 'categoria', 'descripcion', 'imagen']
+    fields = ['region', 'pais', 'categoria','titulo','descripcion', 'imagen']
     template_name = "posts/agregar_post.html"
     success_url = reverse_lazy("index")
 
 class EliminarPost(DeleteView):
     model = Post
-    template_name = "posts/genericos/confirma_eliminar.html"
+    template_name = "genericos/confirma_eliminar.html"
     success_url = reverse_lazy("index")
 
 class ListarPost(ListView):
@@ -53,7 +66,7 @@ class ListarPost(ListView):
 
        
         if query:
-            queryset = queryset.filter(titulo_icontaihs = query )
+            queryset = queryset.filter(titulo__icontains = query )
 
         return queryset.order_by('titulo')
       
@@ -99,7 +112,7 @@ def leer_post(request, id):
             form = OpinionForm()
         else:
             return redirect("apps.usuarios:iniciar_sesion")
-    template_name = "posts/post.html"
+    template_name = "posts/posts.html"
     context = {
         "post" : post,
         "form" : form,
