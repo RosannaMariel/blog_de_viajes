@@ -11,8 +11,10 @@
 
 {% block contenido %}
 
+
 <div class="inicio_sesion">
-    <form method="post">{% csrf_token %}
+    <form method="post" autocomplete="off"> 
+        {% csrf_token %}
         <section style="margin-top: 5%;" data-bs-version="5.1" class="form4 cid-tf6M1H8RDD mbr-fullscreen"
             id="form4-11">
             <div class="container">
@@ -30,10 +32,10 @@
                             <input type="submit" value="Iniciar sesión">
                         </div>
                     </div>
-                    <div class="col-lg-7 offset-lg-1 col-12">
-                        <div class="image-wrapper">
-                            <img class="w-75" src="{% static 'img/inicio_sesion.jpg' %}" alt="">
-                        </div>
+                    <div class="col-lg-7 offset-lg-1 col-12 d-flex justify-content-center align-items-center">
+                        <div class="image-wrapper text-center">
+                             <img src="{% static 'img/inicio_sesion.jpg' %}" alt="" style="max-width: 260%; height: auto;">
+                         </div>
                     </div>
                 </div>
             </div>

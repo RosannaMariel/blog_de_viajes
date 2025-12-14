@@ -48,7 +48,7 @@
                         <li class="list-group-item">Genero: {{p.categoria}}</li>
                     </ul>
                     <div class="card-body">
-                        <p><a href= "" class="btn btn-primary" style="font-size: small;">Leer
+                        <p><a href= "{% url 'apps.posts:post' p.id %}" class="btn btn-primary" style="font-size: small;">Leer
                                 más</a>
                     </div>
                 </div>

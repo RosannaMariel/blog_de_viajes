@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block contenido %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Contacto</h2>
+
+    <form method="post" action="{% url 'contacto:contacto' %}"
+      class="mx-auto" style="max-width: 600px;">
+        {% csrf_token %}
+
+        <div class="mb-3">
+            <label class="form-label">Nombre</label>
+            <input type="text" name="nombre" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Email</label>
+            <input type="email" name="email" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Mensaje</label>
+            <textarea name="mensaje" class="form-control" rows="4" required></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">
+            Enviar mensaje
+        </button>
+    </form>
+</div>
+{% endblock %}

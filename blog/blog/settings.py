@@ -49,7 +49,8 @@ INSTALLED_APPS = [
     "apps.usuarios",
     "apps.posts",
     "apps.opiniones",
-
+    "apps.contacto",
+    "apps.acerca",
 ]
 
 MIDDLEWARE = [
@@ -118,7 +119,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/6.0/topics/i18n/
 
-ANGUAGE_CODE = "es-ar"
+LANGUAGE_CODE = "es-ar"
 
 TIME_ZONE = "America/Argentina/Buenos_Aires"
 
@@ -130,10 +131,16 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
-STATIC_URL = "static/"
-STATICFILES_DIR = BASE_DIR / 'static'
+STATIC_URL = '/static/'
 
-MEDIA = "media/"
+STATICFILES_DIRS = [
+    BASE_DIR / 'static'
+]
+
+STATIC_ROOT = BASE_DIR / 'staticfiles'   
+
+
+MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
 # Default primary key field type
