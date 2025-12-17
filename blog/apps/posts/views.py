@@ -82,17 +82,22 @@ def listar_post_por_categoria(request, categoria):
     return render(request, template_name, context)
 
 def ordenar_por(request):
-    orden = request.GET.get('orden','')
+    orden = request.GET.get('orden','fecha_asc') # Default to fecha_asc
 
-    if orden == "fecha":
+    if orden == "fecha_asc":
         posts = Post.objects.order_by('fecha_agregado')
-    elif orden == "titulo":
+    elif orden == "fecha_desc":
+        posts = Post.objects.order_by('-fecha_agregado')
+    elif orden == "titulo_asc":
         posts = Post.objects.order_by('titulo')
+    elif orden == "titulo_desc":
+        posts = Post.objects.order_by('-titulo')
     else:
         posts = Post.objects.all()
 
     context ={
-        "posts" : posts 
+        "posts" : posts,
+        "orden_actual": orden
     }
     template_name = "posts/listar_posts.html"
 

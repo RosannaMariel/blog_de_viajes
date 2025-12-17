@@ -10,11 +10,30 @@
 {% endblock %}
 
 {% block contenido %}
-<p>Seguro que desea eliminar?</p>
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 70vh;">
+  <div class="card shadow-lg border-0" style="max-width: 500px; width: 100%;">
+    <div class="card-header bg-warning text-dark text-center py-3">
+      <h4 class="mb-0"><i class="bi bi-exclamation-triangle-fill me-2"></i>Confirmar Eliminación</h4>
+    </div>
+    <div class="card-body text-center p-5">
+      <h5 class="card-title text-dark mb-3">¿Estás seguro que deseas continuar?</h5>
+      <p class="card-text text-muted mb-4 lead">
+        Esta acción eliminará el elemento de forma permanente y no se puede deshacer.
+      </p>
 
-<form action="" method="POST">
-  {% csrf_token %}
-  <input type="submit" class="btn btn-primary" value="Si, eliminar." />
-</form>
-<a href="{% url 'apps.posts:listar_posts' %}" class="btn btn-primary" style="font-size: small;">No, volver.</a>
+      <div class="d-flex justify-content-center gap-3">
+        <a href="{% url 'apps.posts:listar_posts' %}" class="btn btn-outline-secondary btn-lg px-4">
+          <i class="bi bi-x-lg me-2"></i>Cancelar
+        </a>
+
+        <form action="" method="POST" class="d-inline">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-warning btn-lg px-4">
+            <i class="bi bi-trash-fill me-2"></i>Eliminar
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}

@@ -10,9 +10,8 @@
             </span>
         </a>
 
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarNav" aria-controls="navbarNav"
-                aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -22,42 +21,41 @@
 
                 <!-- VIAJES -->
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle fw-semibold" href="#" role="button"
-                       data-bs-toggle="dropdown">
-                        Descubre tu destino
+                    <a class="nav-link dropdown-toggle fw-semibold" href="#" role="button" data-bs-toggle="dropdown">
+                        Categorias
                     </a>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="{% url 'apps.posts:listar_posts' %}">Todas</a></li>
                         {% for i in categorias %}
                         <li>
-                            <a class="dropdown-item"
-                               href="{% url 'apps.posts:listar_por_categoria' i.nombre %}">
+                            <a class="dropdown-item" href="{% url 'apps.posts:listar_por_categoria' i.nombre %}">
                                 {{ i.nombre }}
                             </a>
                         </li>
                         {% endfor %}
                     </ul>
                 </li>
-               
+
                 {% if user.es_colaborador %}
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle fw-semibold" href="#" role="button"
-                       data-bs-toggle="dropdown">
+                    <a class="nav-link dropdown-toggle fw-semibold" href="#" role="button" data-bs-toggle="dropdown">
                         Colaborador
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="{% url 'apps.posts:agregar_region' %}">Agregar Region</a></li>
+                        <li><a class="dropdown-item" href="{% url 'apps.posts:agregar_region' %}">Agregar Region</a>
+                        </li>
                         <li><a class="dropdown-item" href="{% url 'apps.posts:agregar_pais' %}">Agregar Pais</a></li>
-                        <li><a class="dropdown-item" href="{% url 'apps.posts:agregar_categoria' %}">Agregar Categoria</a></li>
+                        <li><a class="dropdown-item" href="{% url 'apps.posts:agregar_categoria' %}">Agregar
+                                Categoria</a></li>
                         <li><a class="dropdown-item" href="{% url 'apps.posts:agregar_post' %}">Agregar viajes</a></li>
-                    
+
                     </ul>
                 </li>
                 {% endif %}
                 <!-- ACERCA -->
-                 <li class="nav-item">
+                <li class="nav-item">
                     <a class="nav-link fw-semibold" href="{% url 'acerca:acerca' %}">
-                        Acerca de Nosotros
+                        Acerca de
                     </a>
                 </li>
 
@@ -73,10 +71,9 @@
                 {% if user.is_authenticated %}
                 <li class="nav-item dropdown d-flex align-items-center">
                     <img src="{{ user.imagen.url }}" width="40" height="40"
-                         class="rounded-circle me-2 shadow-sm border">
+                        class="rounded-circle me-2 shadow-sm border">
 
-                    <a class="nav-link dropdown-toggle fw-semibold" href="#" role="button"
-                       data-bs-toggle="dropdown">
+                    <a class="nav-link dropdown-toggle fw-semibold" href="#" role="button" data-bs-toggle="dropdown">
                         {{ user.username }}
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
@@ -90,8 +87,10 @@
                     </ul>
                 </li>
                 {% else %}
-                <li class="nav-item"><a class="nav-link fw-semibold" href="{% url 'apps.usuarios:registrar' %}">Registrarse</a></li>
-                <li class="nav-item"><a class="nav-link fw-semibold" href="{% url 'apps.usuarios:iniciar_sesion' %}">Iniciar Sesión</a></li>
+                <li class="nav-item"><a class="nav-link fw-semibold"
+                        href="{% url 'apps.usuarios:registrar' %}">Registrarse</a></li>
+                <li class="nav-item"><a class="nav-link fw-semibold"
+                        href="{% url 'apps.usuarios:iniciar_sesion' %}">Iniciar Sesión</a></li>
                 {% endif %}
             </ul>
 
