@@ -75,6 +75,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'apps.posts.context_processors.categorias_context',
             ],
         },
     },
@@ -91,7 +92,7 @@ DATABASES = {
         "ENGINE": "django.db.backends.mysql",
         "NAME": "blog_viajes",
         "USER": "root",
-        "PASSWORD": "root",
+        "PASSWORD": "Nico2002!",
         "HOST": "localhost",
         "PORT": "3306",
     }

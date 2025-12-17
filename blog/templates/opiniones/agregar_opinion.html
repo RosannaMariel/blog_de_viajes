@@ -1,41 +1,48 @@
-<div class="row justify-content-md-center ">
-    <div class="col-md-6">
-        <div class="list-group-item gap-3 py-3" aria-current="true">
-            <form method="POST" enctype="multipart/form-data">{%csrf_token%}
-                <div>
-                    {{form.as_p}}
-                </div>
-                {% if user.is_authenticated %}
-                <input class="btn btn-outline-secondary" type="submit" value="Opinar" />
-                {% else %}
-                <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal"
-                    data-bs-target="#exampleModal">
-                    Opinar
-                </button>
-                <!-- Modal -->
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                    aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Error</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                Usted tiene que iniciar sesión o registrarse para poder opinar
-                            </div>
-                            <div class="modal-footer">
-                                <a class="btn btn-outline-secondary" href="{% url 'apps.usuarios:iniciar_sesion' %}"
-                                    target="_blank">Iniciar sesión</a>
-                                <a class="btn btn-outline-secondary" href="{% url 'apps.usuarios:registrar' %}"
-                                    target="_blank">Registrarse</a>
+<div class="row justify-content-center">
+    <div class="col-lg-8 col-md-10">
+        <div class="card shadow-sm border-0 mb-4">
+            <div class="card-body">
+                <h5 class="card-title mb-3">Deja tu Comentario</h5>
+                <form method="POST" enctype="multipart/form-data" novalidate>
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        {{ form.texto }}
+                    </div>
+
+                    {% if user.is_authenticated %}
+                    <button class="btn btn-primary w-100" type="submit">
+                        <i class="bi bi-chat-dots-fill me-1"></i> Publicar Opinión
+                    </button>
+                    {% else %}
+                    <button type="button" class="btn btn-outline-secondary w-100" data-bs-toggle="modal"
+                        data-bs-target="#modalIniciarSesionOpinion">
+                        <i class="bi bi-lock-fill me-1"></i> Opinar (Requiere Iniciar Sesión)
+                    </button>
+
+                    <div class="modal fade" id="modalIniciarSesionOpinion" tabindex="-1"
+                        aria-labelledby="modalLabelOpinion" aria-hidden="true">
+                        <div class="modal-dialog modal-sm">
+                            <div class="modal-content">
+                                <div class="modal-header bg-warning text-dark">
+                                    <h5 class="modal-title" id="modalLabelOpinion">Acceso Requerido</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body text-center">
+                                    <p>Para dejar un comentario, debes iniciar sesión o registrarte.</p>
+                                </div>
+                                <div class="modal-footer justify-content-center">
+                                    <a class="btn btn-outline-primary"
+                                        href="{% url 'apps.usuarios:iniciar_sesion' %}">Iniciar sesión</a>
+                                    <a class="btn btn-success"
+                                        href="{% url 'apps.usuarios:registrar' %}">Registrarse</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                {% endif %}
-            </form>
+                    {% endif %}
+                </form>
+            </div>
         </div>
     </div>
 </div>

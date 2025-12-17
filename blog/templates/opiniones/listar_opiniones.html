@@ -1,32 +1,53 @@
-{% for item in opiniones %}
-{% if user.is_authenticated and user.id == item.usuario.id %}
-<div class="dropdown">
-    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"
-        aria-expanded="false">
-        Opinion
-    </button>
-    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <li><a class="dropdown-item" href="{% url 'apps.opiniones:modificar_opinion' item.pk %}">Modificar
-                opinion</a></li>
-        <li><a class="dropdown-item" href="{% url 'apps.opiniones:eliminar_opinion' item.pk %}">Eliminar
-                opinion</a></li>
-    </ul>
-</div>
-{% endif %}
-<div class="row justify-content-md-center ">
-    <div class="col-md-6">
-        <div class="list-group-item d-flex gap-3 py-3" aria-current="true">
-            <img src="{{ item.usuario.imagen.url }}" style="width:10%; height: 10%;" alt="twbs" width="40" height="40"
-                class="rounded-circle flex-shrink-0">
-            <div class="d-flex gap-2 w-100 justify-content-between">
-                <div>
-                    <h6 class="mb-0">{{ item.usuario.username }}</h6>
-                    <p class="mb-0 text-break opacity-75">{{ item.texto }}</p>
+<div class="row justify-content-center">
+    <div class="col-lg-8 col-md-10">
+        <div class="list-group shadow-sm">
+            {% for item in opiniones %}
+            <div class="list-group-item list-group-item-action py-3">
+                <div class="d-flex align-items-start gap-3">
+                    <img src="{{ item.usuario.imagen.url }}" alt="{{ item.usuario.username }}" width="40" height="40"
+                        class="rounded-circle flex-shrink-0 border border-secondary">
+
+                    <div class="w-100">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <h6 class="mb-1 fw-bold">{{ item.usuario.username }}</h6>
+                            <small class="text-muted text-nowrap mt-1 ms-3">{{ item.fecha|date:"d M Y" }}</small>
+                        </div>
+                        <p class="mb-1 text-break">{{ item.texto }}</p>
+
+                        {% if user.is_authenticated and user.id == item.usuario.id or user.es_colaborador %}
+                        <div class="dropdown mt-2">
+                            <button class="btn btn-sm btn-light dropdown-toggle" type="button"
+                                id="dropdownOpinion{{item.pk}}" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-three-dots"></i>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownOpinion{{item.pk}}">
+                                {% if user.id == item.usuario.id %}
+                                <li>
+                                    <a class="dropdown-item"
+                                        href="{% url 'apps.opiniones:modificar_opinion' item.pk %}">
+                                        <i class="bi bi-pencil-square me-1"></i> Modificar opinión
+                                    </a>
+                                </li>
+                                {% endif %}
+
+                                <li>
+                                    <a class="dropdown-item text-danger"
+                                        href="{% url 'apps.opiniones:eliminar_opinion' item.pk %}">
+                                        <i class="bi bi-trash-fill me-1"></i> Eliminar opinión
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        {% endif %}
+                    </div>
                 </div>
-                <small class="opacity-50 text-nowrap">{{ item.fecha }}</small>
             </div>
+            {% empty %}
+            <div class="list-group-item text-center text-muted py-4">
+                <i class="bi bi-chat-dots display-6 d-block mb-2"></i>
+                Aún no hay opiniones. ¡Sé el primero en comentar!
+            </div>
+            {% endfor %}
         </div>
     </div>
 </div>
-
-{% endfor %}
