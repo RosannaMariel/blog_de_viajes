@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block contenido %}
+{% load static %}
+<div class="main-container" style="text-align: center; margin-top: 12%;">
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="overlay">
+            <div class="con">
+                <header class="head-form">
+                    <h2>Agregar Pais</h2>
+                    <p>Ingrese los datos y presione el botón de guardar</p>
+                </header>
+                <div>
+                    {{form.as_p}}
+                    <input type="submit" value="Guardar">
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

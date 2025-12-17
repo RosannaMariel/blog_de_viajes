@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block titulo %}
+<title>{{ post.titulo }}</title>
+{% endblock %}
+
+{% block navegacion %}
+{% include 'navegacion.html' %}
+{% endblock %}
+
+{% block contenido %}
+<div class="container my-5">
+    {% if user.es_colaborador or user.is_staff %}
+    <div class="position-relative mb-3">
+        <div class="dropdown position-absolute top-0 end-0">
+            <button class="btn btn-sm btn-outline-dark dropdown-toggle" type="button" id="dropdownMenuButtonAdmin"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-gear-fill me-1"></i> Administrar
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButtonAdmin">
+                <li><a class="dropdown-item" href="{% url 'apps.posts:actualizar_post' post.pk %}">Modificar viaje</a>
+                </li>
+                <li><a class="dropdown-item" href="{% url 'apps.posts:eliminar_post' post.pk %}">Eliminar viaje</a></li>
+            </ul>
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="row align-items-center g-5">
+        <div class="col-12 col-lg-6">
+            <div class="card shadow-lg border-0">
+                {% if post.imagen %}
+                <img src="{{ post.imagen.url }}" class="card-img-top img-fluid" alt="Imagen del Post"
+                    style="max-height: 400px; object-fit: cover;">
+                {% else %}
+                <img src="{% static 'img/fondo3.jpg' %}" class="card-img-top img-fluid" alt="Imagen por Defecto"
+                    style="max-height: 400px; object-fit: cover;">
+                {% endif %}
+                <div class="card-footer text-muted text-center small">
+                    Publicado el: {{ post.fecha_agregado|date:"d M Y · H:i" }}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-lg-6">
+            <h1 class="display-4 mb-3 fw-bold">{{ post.titulo }}</h1>
+            <p class="lead text-muted">{{ post.descripcion }}</p>
+            <hr class="my-4">
+            <p class="text-info fw-bold">{{ opiniones.count }} Opinión{% if opiniones.count != 1 %}es{% endif %}</p>
+        </div>
+    </div>
+
+    <section class="mt-5">
+        <h3 class="mb-4 text-center">Comentarios de Usuarios</h3>
+
+        <div id="lista-opiniones">
+            {% include 'opiniones/listar_opiniones.html' %}
+        </div>
+
+        <div class="mt-5 pt-3 border-top">
+            {% include 'opiniones/agregar_opinion.html' %}
+        </div>
+    </section>
+
+</div>
+{% endblock %}

@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 
 from pathlib import Path
 
+from django.urls import reverse_lazy
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -29,6 +31,10 @@ ALLOWED_HOSTS = []
 
 AUTH_USER_MODEL = "usuarios.Usuario"
 
+LOGIN_URL = reverse_lazy('apps.usuarios:iniciar_sesion')
+LOGIN_REDIRECT_URL = reverse_lazy('index')
+LOGOUT_REDIRECT_URL = reverse_lazy('index')
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -40,7 +46,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # Apps propias
-    "apps.usuarios"
+    "apps.usuarios",
+    "apps.posts",
+    "apps.opiniones",
+    "apps.contacto",
+    "apps.acerca",
 ]
 
 MIDDLEWARE = [
@@ -58,13 +68,14 @@ ROOT_URLCONF = 'blog.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'apps.posts.context_processors.categorias_context',
             ],
         },
     },
@@ -109,7 +120,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/6.0/topics/i18n/
 
-ANGUAGE_CODE = "es-ar"
+LANGUAGE_CODE = "es-ar"
 
 TIME_ZONE = "America/Argentina/Buenos_Aires"
 
@@ -121,10 +132,16 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
-STATIC_URL = "static/"
-STATICFILES_DIR = BASE_DIR / 'static'
+STATIC_URL = '/static/'
 
-MEDIA = "media/"
+STATICFILES_DIRS = [
+    BASE_DIR / 'static'
+]
+
+STATIC_ROOT = BASE_DIR / 'staticfiles'   
+
+
+MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
 # Default primary key field type

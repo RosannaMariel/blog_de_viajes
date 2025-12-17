@@ -1,0 +1,99 @@
+{% load static %}
+<nav class="navbar navbar-expand-lg bg-white shadow-sm py-3 sticky-top">
+    <div class="container">
+
+        <!-- LOGO -->
+        <a class="navbar-brand d-flex align-items-center" href="{% url 'index' %}">
+            <img src="{% static 'img/logo.png' %}" alt="Logo Blog de Viajes" width="40" height="40" class="me-2">
+            <span class="fw-bold" style="font-family: 'Poppins', sans-serif; font-size: 1.3rem;">
+                Blog de Viajes
+            </span>
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- LINKS -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mx-auto">
+
+                <!-- VIAJES -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle fw-semibold" href="#" role="button" data-bs-toggle="dropdown">
+                        Categorias
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{% url 'apps.posts:listar_posts' %}">Todas</a></li>
+                        {% for i in categorias %}
+                        <li>
+                            <a class="dropdown-item" href="{% url 'apps.posts:listar_por_categoria' i.nombre %}">
+                                {{ i.nombre }}
+                            </a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+
+                {% if user.es_colaborador %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle fw-semibold" href="#" role="button" data-bs-toggle="dropdown">
+                        Colaborador
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{% url 'apps.posts:agregar_region' %}">Agregar Region</a>
+                        </li>
+                        <li><a class="dropdown-item" href="{% url 'apps.posts:agregar_pais' %}">Agregar Pais</a></li>
+                        <li><a class="dropdown-item" href="{% url 'apps.posts:agregar_categoria' %}">Agregar
+                                Categoria</a></li>
+                        <li><a class="dropdown-item" href="{% url 'apps.posts:agregar_post' %}">Agregar viajes</a></li>
+
+                    </ul>
+                </li>
+                {% endif %}
+                <!-- ACERCA -->
+                <li class="nav-item">
+                    <a class="nav-link fw-semibold" href="{% url 'acerca:acerca' %}">
+                        Acerca de
+                    </a>
+                </li>
+
+                <!-- CONTACTO -->
+                <li class="nav-item">
+                    <a class="nav-link fw-semibold" href="{% url 'contacto:contacto' %}">
+                        Contacto
+                    </a>
+                </li>
+            </ul>
+            <!-- USUARIO -->
+            <ul class="navbar-nav">
+                {% if user.is_authenticated %}
+                <li class="nav-item dropdown d-flex align-items-center">
+                    <img src="{{ user.imagen.url }}" width="40" height="40"
+                        class="rounded-circle me-2 shadow-sm border">
+
+                    <a class="nav-link dropdown-toggle fw-semibold" href="#" role="button" data-bs-toggle="dropdown">
+                        {{ user.username }}
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" href="#">Modificar perfil</a></li>
+                        <li>
+                            <form method="post" action="{% url 'apps.usuarios:cerrar_sesion' %}">
+                                {% csrf_token %}
+                                <button type="submit" class="dropdown-item">Cerrar sesión</button>
+                            </form>
+                        </li>
+                    </ul>
+                </li>
+                {% else %}
+                <li class="nav-item"><a class="nav-link fw-semibold"
+                        href="{% url 'apps.usuarios:registrar' %}">Registrarse</a></li>
+                <li class="nav-item"><a class="nav-link fw-semibold"
+                        href="{% url 'apps.usuarios:iniciar_sesion' %}">Iniciar Sesión</a></li>
+                {% endif %}
+            </ul>
+
+        </div>
+    </div>
+</nav>
